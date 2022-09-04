@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   }
    namespace :public do
      post 'orders/confirm' => 'orders#confirm'
-    resources :customers, only: [:show, :edit, :update, :quit]
+    resources :customers, only: [:show, :edit, :update] do
+      get 'customers/quit'
+      patch 'customers/out'
+    end
     
     resources :orders, only: [:new, :index, :show, :create, :confirm] do
       collection do
