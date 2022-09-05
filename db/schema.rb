@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 2022_09_05_123134) do
 
   create_table "addresses", force: :cascade do |t|
-    t.integer "customer_id"
-    t.string "name"
-    t.string "postal_code"
-    t.string "address"
+    t.integer "customer_id"#会員ID
+    t.string "name"#宛名
+    t.string "postal_code"#郵便番号
+    t.string "address"#住所
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
   end
 
   create_table "cart_items", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "customer_id"
-    t.integer "amount"
+    t.integer "item_id"#商品ID
+    t.integer "customer_id"#会員ID
+    t.integer "amount"#数量
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "last_name"
-    t.string "first_name"
-    t.string "last_name_kana"
-    t.string "first_name_kana"
-    t.string "postal_code"
-    t.string "address"
-    t.string "telephone_number"
-    t.boolean "is_deleted", default: false
+    t.string "last_name"#姓
+    t.string "first_name"#名
+    t.string "last_name_kana"#姓カナ
+    t.string "first_name_kana"#名カナ
+    t.string "postal_code"#郵便番号
+    t.string "address"#住所
+    t.string "telephone_number"#電話番号
+    t.boolean "is_deleted", default: false#会員ステータス
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
@@ -62,41 +62,41 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
   end
 
   create_table "genres", force: :cascade do |t|
-    t.string "name"
+    t.string "name"#ジャンル名
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "genre_id"
-    t.string "name"
-    t.string "image_id"
-    t.text "introduction"
-    t.integer "price"
-    t.boolean "is_active", default: true
+    t.integer "genre_id"#ジャンルID
+    t.string "name"#商品名
+    t.string "image_id"#商品画像ID
+    t.text "introduction"#商品説明文
+    t.integer "price"#税抜き価格
+    t.boolean "is_active", default: true#販売ステータス
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "order_details", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "item_id"
-    t.integer "price"
-    t.integer "amount"
-    t.integer "making_status", default: 0
+    t.integer "order_id"#注文ID
+    t.integer "item_id"#商品ID
+    t.integer "price"#購入時価格
+    t.integer "amount"#数量
+    t.integer "making_status", default: 0#製造ステータス
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer_id"
-    t.string "postal_code"
-    t.string "address"
-    t.string "name"
-    t.integer "shipping_cost"
-    t.integer "total_payment"
-    t.integer "payment_method"
-    t.integer "status"
+    t.integer "customer_id"#会員ID
+    t.string "postal_code"#配送先郵便番号
+    t.string "address"#配送先住所
+    t.string "name"#配送先宛名
+    t.integer "shipping_cost"#送料
+    t.integer "total_payment"#請求額
+    t.integer "payment_method"#支払方法
+    t.integer "status"#注文ステータス
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
