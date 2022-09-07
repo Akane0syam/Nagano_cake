@@ -1,18 +1,21 @@
 <h4>商品新規登録</h4>
 <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
   <%= f.label :name, "商品画像" %>
-  <%= f.file_field :image_id, accept: "image/*" %>
+  <%= f.file_field :image_id, accept: "image/*" %><br>
   
-  <%= %>
-  <%= %>
+  <%= f.label :name, "商品名" %>
+  <%= f.text_field :name %><br>
   
-  <%= %>
-  <%= %>
+  <%= f.label :name, "商品説明" %>
+  <%= f.text_area :introduction %><br>
   
-  <%= %>
-  <%= %>
+  <%= f.label :name, "ジャンル" %>
+  <%= %><br>
   
-  <%= %>
+  <%= f.label :name, "税込価格" %>
+  <%= %><br>
+  
+  <%= f.label :name, "販売ステータス" %>
   <%= %>
   
   
