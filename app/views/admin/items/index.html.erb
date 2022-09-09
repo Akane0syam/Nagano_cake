@@ -1,1 +1,24 @@
 <h4>商品一覧</h4>
+<div class="text-center">
+  <%= link_to new_admin_item_path, class: "btn-outline-secondary" do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+<table>
+  <tr>
+    <th>商品ID</th>
+    <th>商品名</th>
+    <th>税抜き価格</th>
+    <th>ジャンル</th>
+    <th>ステータス</th>
+  </tr>
+  <% @items.each do |item| %>
+    <tr>
+      <th><%= item.id %></th>
+      <th><%= item.name %></th>
+      <th><%= item.price  %></th>
+      <th><%= item.genre.name %></th>
+      <th><%=  %></th>
+    </tr>
+  <% end %>
+</table>
