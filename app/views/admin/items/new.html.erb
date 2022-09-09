@@ -9,11 +9,11 @@
   <%= f.label :name, "商品説明" %>
   <%= f.text_area :introduction %><br>
   
-  <%= f.label :name, "ジャンル" %>
-  <%= %><br>
+  <%= f.label :genre_id, "ジャンル" %>
+  <%= f.select :genre_id, [['ケーキ',1], ['キャンディ',2]] %><br>
   
   <%= f.label :name, "税込価格" %>
-  <%= %><br>
+  <%= f.text_field :price %>円<br>
   
   <%= f.label :name, "販売ステータス" %>
   <%= %>
