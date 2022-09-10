@@ -1,14 +1,42 @@
 <h4>商品詳細</h4>
-  <% if @item.image.attached? %>
-    <%= image_tag @item.image, size: "300x300" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "300x300" %>
-  <% end %>
-<tr>
-  <th>商品名</th>
-  <th><%= @item.name %></th>
-</tr><br>
-<tr>
-  <th>商品説明</th>
-  <th><%= @item.introduction %></th>
-</tr>
+<div class="col-lg-4">
+  <thead>
+    <% if @item.image.attached? %>
+      <%= image_tag @item.image, size: "300x300" %>
+    <% else %>
+      <%= image_tag 'no_image', size: "300x300" %>
+    <% end %>
+  </thead>
+</div>
+
+<div class="col-lg-8">
+  <tbody>
+    <tr>
+      <th>商品名</th>
+      <th><%= @item.name %></th>
+    </tr><br>
+    <tr>
+      <th>商品説明</th>
+      <th><%= @item.introduction %></th>
+    </tr><br>
+    <tr>
+      <th>ジャンル</th>
+      <th><%= @item.genre.name %></th>
+    </tr><br>
+    <tr>
+      <th>税込価格<br>(税抜き価格)</th>
+      <th><%= @item.price %>円</th>
+    </tr><br>
+    <tr>
+      <th>販売ステータス</th>
+      <td>
+        <% if @item.is_active == true %>
+          <p class="h5 text-success ">販売中</p>
+        <% else %>
+          <p class="h5 text-secondary ">販売停止中</p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody> 
+</div>
+
