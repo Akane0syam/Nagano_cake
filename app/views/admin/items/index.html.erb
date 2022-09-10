@@ -15,10 +15,16 @@
   <% @items.each do |item| %>
     <tr>
       <th><%= item.id %></th>
-      <th><%= item.name %></th>
-      <th><%= item.price  %></th>
+      <th><%= link_to item.name, admin_item_path(item.id) %></th>
+      <th><%= item.price %></th>
       <th><%= item.genre.name %></th>
-      <th><%=  %></th>
+      <th>
+        <% if item.is_active == true %>
+          <p class="h5 text-success">販売中</p>
+        <% else %>
+          <p class="h5 text-secondary">販売停止中</p>
+        <% end %>
+      </th>
     </tr>
   <% end %>
 </table>
