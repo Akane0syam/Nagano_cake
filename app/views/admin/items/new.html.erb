@@ -10,7 +10,7 @@
   <%= f.text_area :introduction, :placeholder => "ここに説明文を記述します" %><br>
   
   <%= f.label :genre_id, "ジャンル" %>
-  <%= f.select :genre_id, [['キャンディ',1], ['ケーキ',2]], include_blank: "--選択して下さい--" %><br>
+  <%= f.select :genre_id, [["ケーキ",1], ["キャンディ",2], ["焼き菓子"],3], include_blank: "--選択して下さい--" %><br>
   
   <%= f.label :price, "税込価格" %>
   <%= f.text_field :price, :placeholder => "1000" %>円<br>
