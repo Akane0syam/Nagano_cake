@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_05_123134) do
+ActiveRecord::Schema.define(version: 2022_09_10_042105) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.integer "customer_id"#会員ID
@@ -54,7 +82,7 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
     t.string "postal_code"#郵便番号
     t.string "address"#住所
     t.string "telephone_number"#電話番号
-    t.boolean "is_deleted", default: false#会員ステータス
+    t.boolean "is_deleted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
@@ -63,8 +91,8 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"#ジャンル名
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, null: false#登録日時
+    t.datetime "updated_at", precision: 6, null: false#更新日時
   end
 
   create_table "items", force: :cascade do |t|
@@ -101,4 +129,6 @@ ActiveRecord::Schema.define(version: 2022_09_05_123134) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end
