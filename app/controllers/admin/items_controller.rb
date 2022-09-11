@@ -21,6 +21,14 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
   
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to admin_item_path(@item)
+    else
+      redirect_to admin_items_path
+    end
+  end
   
   private
 
