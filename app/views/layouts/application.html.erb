@@ -5,17 +5,93 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <span>LOGO</span>
-      <% end %>
-    </nav>
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #f5f5f5;">
+         <%= link_to root_path, class: "navbar-brand" do %>
+            <span>LOGO</span>
+          <% end %>
+          
+          <div class="navbar-collapse collapse show" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if customer_signed_in? %>
+                <li>
+                  <%= link_to public_customer_path(current_customer) do %>
+                    <button class="btn btn-sm btn-outline-secondary">マイページ</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to public_items_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">商品一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to public_cart_items_path(current_customer) do %>
+                    <button class="btn btn-sm btn-outline-secondary">カート</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_admin_session_path, method: :delete do %>
+                    <button class="btn btn-sm btn-outline-secondary">ログアウト</button>
+                  <% end %>
+                </li>
+              <% elsif admin_signed_in? %>
+                <li>
+                  <%= link_to admin_items_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">商品一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to admin_customers_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">会員一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to public_homes_about_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">注文履歴一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to admin_genres_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">ジャンル一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_admin_session_path, method: :delete do %>
+                    <button class="btn btn-sm btn-outline-secondary">ログアウト</button>
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to public_homes_about_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">About</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to public_items_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">商品一覧</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_customer_registration_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">新規登録</button>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_customer_session_path do %>
+                    <button class="btn btn-sm btn-outline-secondary">ログイン</button>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+      </nav>
+    </header>
+    
     <%= yield %>
   </body>
 </html>
