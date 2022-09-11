@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <span>LOGO</span>
+      <% end %>
+    </nav>
     <%= yield %>
   </body>
 </html>
