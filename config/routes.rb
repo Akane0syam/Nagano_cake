@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update] do
       collection do
         get 'quit'
-        patch 'sout'
+        patch 'out'
       end
     end
     
