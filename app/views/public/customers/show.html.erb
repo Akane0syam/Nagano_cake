@@ -1,6 +1,8 @@
 <h2>マイページ</h2>
-<h4>登録情報</h4>
-<%= link_to "編集する", edit_public_customer_path, class: "btn btn-success" %>
+  <h4>
+    登録情報
+    <%= link_to "編集する", edit_public_customer_path, class: "btn btn-success" %>
+  </h4>
  <table border>
     <tr>
       <th>氏名</th>
@@ -27,3 +29,7 @@
       <th><%= @customer.email %></th>
     </tr>
   </table>
+  
+  <h4>注文履歴
+  <%= link_to "一覧を見る", public_orders_path, class: "btn btn-primary" %>
+  </h4>
