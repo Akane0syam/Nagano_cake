@@ -16,6 +16,12 @@ class Public::CustomersController < ApplicationController
     end
   end
   
+  def quit
+  end
+  
+  def out
+  end
+  
   private
   
   def customer_params
