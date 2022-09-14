@@ -19,7 +19,12 @@ class Public::CustomersController < ApplicationController
   def quit
   end
   
-  def out
+  def out #退会のアクション
+    @customer = current_customer
+    @customer.update(is_deleted: true)#is_deletedカラムの値をtrueに更新
+    reset_session #現在のログイン状況をリセットする
+    flash[:notice] = "退会が完了しました。"
+    redirect_to root_path
   end
   
   private
