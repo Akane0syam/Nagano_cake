@@ -1,2 +1,4 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<h4><%= @customer.last_name+@customer.first_name %>さんの会員情報編集</h4>
+<%= form_with model: @customer, url: admin_customer_path, local: true do |f| %>
+
+<% end %>
