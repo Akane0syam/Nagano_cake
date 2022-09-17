@@ -8,10 +8,14 @@
 
 <h2>新着商品</h2>
 <% @items.each do |item| %>
-  <a>
-    <%= image_tag item.image, size: "100x100" %><br>
+  <div class="">
+    <% if item.image.attached? %>
+      <%= image_tag item.image, size: "200x200" %>
+    <% else %>
+      <%= image_tag 'no_image', size: "200x200" %>
+    <% end %>
+    <br>
     <h7><%= item.name %></h7>
-    <p><%= item.price %>円</p>
-  </a>
-  
+    <p>¥<%= item.price %></p>
+  </div>
 <% end %>
