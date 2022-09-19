@@ -1,1 +1,27 @@
 <h4>ショッピングカート</h4>
+<table class="table table-bordered">
+  <thead class="table-active" >
+    <tr>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+      <tr>
+        <th><%= image_tag cart_item.item.image, size: "70x50" %><%= cart_item.item.name %></th>
+        <th><%= cart_item.item.with_tax_price%></th>
+        <th>
+          <%= form_with model: cart_item, url: public_cart_item_path(cart_item), method: :PATCH do |f| %>
+            <%= f.select :amount, *[1..5] %>
+            <%= f.submit "変更", class: "btn btn-success" %>
+          <% end %>
+        </th>
+        <th><%= cart_item.subtotal%></th>
+        <th></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
