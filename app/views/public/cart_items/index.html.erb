@@ -25,10 +25,21 @@
         </td>
         <td><%= cart_item.subtotal%></td>
         <td><%= link_to "削除する", public_cart_item_path(cart_item.id), method: :delete, data: { confirm: '本当に消しますか?' }, class: "btn btn-danger" %></td>
-        <td><%= @total += cart_item.subtotal %>
+        <% @total += cart_item.subtotal %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 <%= link_to "買い物を続ける", root_path, class: "btn btn-primary" %>
 <%= link_to "情報入力に進む", new_public_order_path, class: "btn btn-success" %>
+<table class="table table-bordered">
+  <thead class="table-active" >
+    <tr><th>合計金額</th></tr>
+  </thead>
+  <tbody>
+    <tr><th><%= @total %></th></tr>
+  </tbody>
+  
+</table>
+

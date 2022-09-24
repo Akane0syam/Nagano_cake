@@ -32,22 +32,19 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-    if params[:order][:address_number] == "1"
+    if params[:order][:address_number] == "1"# 1（自宅）
       @order.postal_code = current_customer.postal_code
-      @order.address = current_customer.customer_address
-      @order.name = current_customer.name
-    elsif params[:order][:address_number] == "2"
-     if Address.exists?(name: params[:order][:registered])# registered は viwe で定義しています
-        @order.name = Address.find(params[:order][:registered]).name
-        @order.address = Address.find(params[:order][:registered]).address
-      else
-        render :new
-        # 既存のデータを使っていますのでありえないですが、万が一データが足りない場合は new を render します
-      end
-    else params[:order][:address_number] == "3"
-      @address_new = current_customer.addresses.new(address_params)
-    end
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name+current_customer.first_name
       
+    elsif params[:order][:address_number] == "2"# 2（配送先一覧）
+      @order.postal_code = Address.find(params[:order][:address_id]).postal_code
+      @order.address = Address.find(params[:order][:address_id]).address
+      @order.name = Address.find(params[:order][:address_id]).name
+      
+    else params[:order][:address_number] == "3"# 3 (新配送先)
+      
+    end
   end
 
   def complete
@@ -55,8 +52,11 @@ class Public::OrdersController < ApplicationController
   
   private
   def order_params
+    params.require(:order).permit(:customer_id,:postal_code,:address,:name,:shipping_cost,:total_payment,
+    :payment_method,:status)
   end
   
   def address_params
+    params.require(:address).permit(:customer_id,:name,:postal_code,:address)
   end
 end
