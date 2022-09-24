@@ -9,6 +9,7 @@ class Public::CartItemsController < ApplicationController
     @cart_item.customer_id = current_customer.id
     @cart_item.save
     redirect_to public_cart_items_path
+    
   end
 
   def update
@@ -21,8 +22,16 @@ class Public::CartItemsController < ApplicationController
   end
   
   def destroy
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.destroy
+    redirect_to public_cart_items_path
   end
   
+  def destroy_all#カート内全て削除
+    CartItem.destroy_all
+    flash[:notice] = "全ての商品を削除しました"
+    redirect_to root_path
+  end
  
   
   private
