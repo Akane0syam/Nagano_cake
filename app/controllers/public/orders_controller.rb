@@ -1,37 +1,22 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
+    @addresses = current_customer.addresses
   end
   
   def index
+    @orders = current_customer.orders
   end
   
   def show
+    
   end
   
-  def create
-    @cart_items = current_customer.cart_items.all
-    # ログインユーザーのカートアイテムをすべて取り出して cart_items に入れる
-    @order = current_customer.orders.new(order_params)
-    if @order.save
-      @cart_items.each do |cart|
-        @order_item = OrderItem.new
-        @order_item.item_id = cart.item_id
-        @order_item.order_id = @order.id
-        @order_item.order_quantity = cart.quantity
-        @order_item.order_price = cart.item.price
-        @order_item.save
-      end
-      redirect_to complete_public_orders_path
-      cart_items.destroy_all #カートアイテムを全部削除する
-    else
-      @order = Order.new(order_params)
-      render :new
-    end
-  end
-
   def confirm
+    @cart_items = current_customer.cart_items
     @order = Order.new(order_params)
+    
+    
     if params[:order][:address_number] == "1"# 1（自宅）
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
@@ -43,7 +28,30 @@ class Public::OrdersController < ApplicationController
       @order.name = Address.find(params[:order][:address_id]).name
       
     else params[:order][:address_number] == "3"# 3 (新配送先)
-      
+      @order.postal_code = params[:order][:postal_code]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
+    end
+  end
+
+    def create
+    @cart_items = current_customer.cart_items.all
+    # ログインユーザーのカートアイテムをすべて取り出して cart_items に入れる
+    @order = current_customer.orders.new(order_params)
+    if @order.save
+      @cart_items.each do |cart_item|
+        @order_detail = OrderDetail.new
+        @order_detail.item_id = cart.item_id
+        @order_detail.order_id = @order.id
+        @order_detail.order_quantity = cart.quantity
+        @order_detail.order_price = cart.item.price
+        @order_detail.save
+      end
+      redirect_to complete_public_orders_path
+      cart_items.destroy_all #カートアイテムを全部削除する
+    else
+      @order = Order.new(order_params)
+      render :new
     end
   end
 
