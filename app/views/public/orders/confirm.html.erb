@@ -24,9 +24,9 @@
       <th>送料</th>
       <td><%= @order.shipping_cost %></td>
       <th>商品合計</th>
-      <td></td>
+      <td><%= @cart_items.sum(&:subtotal) %></td>
       <th>請求金額</th>
-      <td></td>
+      <td><%= @order.shipping_cost + @cart_items.sum(&:subtotal) %></td>
     </tr>
 </table>
 <table>
@@ -36,6 +36,16 @@
   </tr>
   <tr>
     <th>お届け先</th>
-    <td><%= @order.postal_code %><%= @order.address %><br><%= @order.name %></td>
+    <td>〒<%= @order.postal_code %><%= @order.address %><br><%= @order.name %></td>
   </tr>
 </table>
+<h3>
+  <%= form_with model: @order, url: public_orders_path, method: :post, local: true do |f|%>
+    <%= f.hidden_field :payment_method %>
+    <%= f.hidden_field :postal_code %>
+    <%= f.hidden_field :address %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :total_payment %>
+    <%= f.submit '注文を確定する', class: 'btn btn-success'%>
+  <% end %>
+</h3>
