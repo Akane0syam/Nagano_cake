@@ -9,7 +9,10 @@ class Public::OrdersController < ApplicationController
   end
   
   def show
-    
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details
+    @order.shipping_cost = 800
+
   end
   
   def confirm
@@ -35,7 +38,7 @@ class Public::OrdersController < ApplicationController
     end
   end
 
-    def create
+  def create
     @cart_items = current_customer.cart_items.all
     # ログインユーザーのカートアイテムをすべて取り出して cart_items に入れる
     @order = current_customer.orders.new(order_params)
