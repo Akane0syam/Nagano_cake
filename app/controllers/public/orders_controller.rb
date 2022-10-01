@@ -12,7 +12,6 @@ class Public::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order_details = @order.order_details
     @order.shipping_cost = 800
-
   end
   
   def confirm
@@ -39,24 +38,21 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
+    @order = current_customer.orders.new(order_params)
+    @order.save
     @cart_items = current_customer.cart_items.all
     # ログインユーザーのカートアイテムをすべて取り出して cart_items に入れる
-    @order = current_customer.orders.new(order_params)
-    if @order.save
-      @cart_items.each do |cart_item|
-        @order_detail = OrderDetail.new
-        @order_detail.item_id = cart_item.item_id
-        @order_detail.order_id = @order.id
-        @order_detail.amount = cart_item.amount
-        @order_detail.price = cart_item.item.price
-        @order_detail.save
+    @cart_items.each do |cart_item|
+      @order_detail = OrderDetail.new
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.order_id = @order.id
+      @order_detail.count = cart_item.count
+      @order_detail.price = cart_item.item.price * cart_item.count 
+      @order_detail.save
       end
-      @cart_items.destroy_all #カートアイテムを全部削除する
-      redirect_to complete_public_orders_path
-    else
-      @order = Order.new(order_params)
-      render :new
-    end
+    # 最後にカートを全て削除する
+    @cart_items.destroy_all
+    redirect_to complete_public_orders_path
   end
 
   def complete
