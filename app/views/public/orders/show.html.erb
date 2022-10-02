@@ -34,16 +34,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>
-        <% @order.order_details.each do |order_detail| %>
-          	<%= order_detail.item.name %><br>
-        <% end %>
-      </th>
-      <th><%#= @order_detail.price%></th>
-      <th><%#= @order.amount %></th>
-      <th><%#= @order.subtotal %></th>
-    </tr>
+    <% @order_details.each do |order_detail| %>
+      <tr>
+        <td><%= order_detail.item.name %></td>
+        <td><%= order_detail.item.with_tax_price %>円</td>
+        <td><%= order_detail.amount %></td>
+        <td><%= order_detail.price %>円</td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
@@ -58,9 +56,9 @@
   </thead>
   <tbody>
     <tr>
-      <th><%= @order.total_payment %></th>
+      <th><%#= @order.item.price %></th>
       <th><%= @order.shipping_cost %></th>
-      <th></th>
+      <th><%= @order.total_payment %></th>
     </tr>
   </tbody>
 </table>
