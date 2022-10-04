@@ -11,10 +11,12 @@
   <tbody>
     <tr>
       <% @orders.each do |order| %>
-      <th></th>
-      <th><%= order.created_at.strftime('%Y/%m/%d') %></th>
-      <th><%= link_to order.customer.last_name+order.customer.first_name, admin_order_path(order) %></th>
-      <th><%#= order.amount %></th>
+      <tr>
+        <th></th>
+        <th><%= order.created_at.strftime('%Y/%m/%d') %></th>
+        <th><%= link_to order.customer.last_name+order.customer.first_name, admin_order_path(order) %></th>
+        <th></th>
+      </tr>
       <% end %>
     </tr>
   </tbody>

@@ -40,6 +40,7 @@
         <td><%= order_detail.item.with_tax_price %>円</td>
         <td><%= order_detail.amount %></td>
         <td><%= order_detail.item.with_tax_price * order_detail.amount %>円</td>
+        <% @total_item_price += order_detail.item.with_tax_price * order_detail.amount %>
       </tr>
     <% end %>
   </tbody>
@@ -56,7 +57,7 @@
   </thead>
   <tbody>
     <tr>
-      <th><%#= @total %></th>
+      <th><%= @total_item_price %></th>
       <th><%= @order.shipping_cost %></th>
       <th><%= @order.total_payment %></th>
     </tr>

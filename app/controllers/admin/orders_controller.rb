@@ -1,11 +1,12 @@
 class Admin::OrdersController < ApplicationController
   def index
-     @orders = current_customer.orders
+     @orders = Order.all
   end
   
   def show
     @order = Order.find(params[:id])
     @order_details = @order.order_details
+    @total_item_price = 0
   end
   
   def update
