@@ -15,7 +15,7 @@
         <th></th>
         <th><%= order.created_at.strftime('%Y/%m/%d') %></th>
         <th><%= link_to order.customer.last_name+order.customer.first_name, admin_order_path(order) %></th>
-        <th></th>
+        <th><%#= order.order_details.amount %></th>
       </tr>
       <% end %>
     </tr>

@@ -23,7 +23,7 @@
   <tbody>
     <tr>
       <th>商品合計</th>
-      <td><%= @total_item_price %>円</td>
+      <td><%= @order.total_payment-@order.shipping_cost %>円</td>
     </tr>
     <tr>
       <th>送料</th>
