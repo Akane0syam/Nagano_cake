@@ -1,18 +1,16 @@
 class Admin::OrdersController < ApplicationController
   def index
-     @orders = Order.all
+    @orders = Order.all
   end
   
   def show
     @order = Order.find(params[:id])
-    @order_details = @order.order_details
     @total_item_price = 0
   end
   
   def update
     @order = Order.find(params[:id])
     @order.update(order_params)
-    flash[:notice] = "注文ステータスの変更しました"
     redirect_to admin_order_path(@order)
   end
   
