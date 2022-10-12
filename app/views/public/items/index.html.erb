@@ -1,15 +1,21 @@
-<h2>商品一覧</h2>
-<% @items.each do |item| %>
-  <div class="">
-    <%= link_to public_item_path(item) do %>
-      <% if item.image.attached? %>
-        <%= image_tag item.image, size: "200x200" %>
-      <% else %>
-        <%= image_tag 'no_image', size: "200x200" %>
-      <% end %>
+<div class="container">
+  <h2>商品一覧</h2>
+  <div class="row">
+    <% @items.each do |item| %>
+      <div class="card-deck">  
+        <div class="card text-center">
+          <%= link_to public_item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, size: "150" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "100x100" %>
+            <% end %>
+          <% end %>
+        <br>
+        <h7><%= item.name %></h7>
+        <p>¥<%= item.price %></p>
+        </div>
+      </div>
     <% end %>
-    <br>
-    <h7><%= item.name %></h7>
-    <p>¥<%= item.price %></p>
   </div>
- <% end %>
+</div>
