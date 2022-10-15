@@ -1,65 +1,71 @@
-<h4>注文履歴詳細</h4>
-
-<h6>注文情報</h6>
-<table class="table table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>注文日</th>
-      <th>配送先</th>
-      <th>支払方法</th>
-    </tr>
-  </thead>
-  <tbody>
-   <tr>
-    <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
-    <td>
-      〒<%= @order.postal_code %><br>
-      <%= @order.address %><br>
-      <%= @order.name %>
-    
-    </td>
-    <td><%= @order.payment_method_i18n %></td>
-   </tr>
-  </tbody>
-</table>
-
-<h6>注文内容</h6>
-<table class="table table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th>商品</th>
-      <th>単価(税込)</th>
-      <th>個数</th>
-      <th>小計</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order_details.each do |order_detail| %>
-      <tr>
-        <td><%= order_detail.item.name %></td>
-        <td><%= order_detail.item.with_tax_price %>円</td>
-        <td><%= order_detail.amount %></td>
-        <td><%= order_detail.item.with_tax_price * order_detail.amount %>円</td>
-        <% @total_item_price += order_detail.item.with_tax_price * order_detail.amount %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h6>請求情報</h6>
-<table class="table table-bordered table-condensed">
-   <thead>
-    <tr>
-      <th>商品合計</th>
-      <th>配送料</th>
-      <th>ご請求額</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><%= @total_item_price %></th>
-      <th><%= @order.shipping_cost %></th>
-      <th><%= @order.total_payment %></th>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <h4>注文履歴詳細</h4>
+      
+      <h6>注文情報</h6>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <td>注文日</td>
+            <td>配送先</td>
+            <td>支払方法</td>
+          </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+          <td>
+            〒<%= @order.postal_code %><br>
+            <%= @order.address %><br>
+            <%= @order.name %>
+          
+          </td>
+          <td><%= @order.payment_method_i18n %></td>
+         </tr>
+        </tbody>
+      </table>
+      
+      <h6>注文内容</h6>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th>商品</th>
+            <th>単価(税込)</th>
+            <th>個数</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_details.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.item.name %></td>
+              <td><%= order_detail.item.with_tax_price %>円</td>
+              <td><%= order_detail.amount %></td>
+              <td><%= order_detail.item.with_tax_price * order_detail.amount %>円</td>
+              <% @total_item_price += order_detail.item.with_tax_price * order_detail.amount %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <h6>請求情報</h6>
+      <table class="table table-bordered table-condensed">
+         <thead>
+          <tr>
+            <th>商品合計</th>
+            <th>配送料</th>
+            <th>ご請求額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><%= @total_item_price %></th>
+            <th><%= @order.shipping_cost %></th>
+            <th><%= @order.total_payment %></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
