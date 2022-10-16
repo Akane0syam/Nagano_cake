@@ -21,6 +21,10 @@ class Public::SessionsController < Devise::SessionsController
 
   protected
   
+  def after_sign_out_path_for(resource)#ログアウト後に遷移するpathを設定
+    root_path#トップページ
+  end
+  
   # 退会しているかを判断するメソッド
   def customer_state
     #入力されたemailからアカウントを1件取得

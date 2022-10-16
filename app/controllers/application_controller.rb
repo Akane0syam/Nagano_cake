@@ -9,13 +9,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def after_sign_out_path_for(resource_or_scope)#ログアウト後に遷移するpathを設定
-      if resource_or_scope == :admin
-        new_admin_session_path
-      else 
-        root_path
-      end
-  end
   
   def move_to_signed_in
     unless customer_signed_in?

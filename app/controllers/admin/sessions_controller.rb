@@ -23,6 +23,10 @@ class Admin::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     admin_items_path
   end
+  
+  def after_sign_out_path_for(resource)#ログアウト後に遷移するpathを設定
+    new_admin_session_path#管理者ログインページ
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
